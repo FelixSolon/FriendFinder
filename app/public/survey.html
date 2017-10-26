@@ -37,8 +37,9 @@
                 <form action=""></form>
                     <label for="name">Name</label>
                     <input type="name" class="form-control" id="nameInput" placeholder="Enter Name" style="background-color: #000; color: #fff">
-                        <label for="pictureLink">Link to Photo Image (required)</label>
-                        <input type="name" class="form-control" id="pictureLink" style="background-color: #000; color: #fff">
+
+                    <label for="pictureInput">Link to Photo Image (required)</label>
+                    <input type="pictureInput" class="form-control" id="pictureInput" style="background-color: #000; color: #fff">
                     <div class="text-center">
                         <h4 class="mt-5">Question 1</h4>
                         <p>Pineapple is a good pizza topping.</p>
@@ -166,8 +167,26 @@
                 </form>
             </div>
         </div>
+        <!-- Large modal -->
 
+    <div class="modal fade resultsModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="resultsModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h2 class="modal-title">Best Match</h2>
+                </div>
+                <div class="modal-body">
+                    <h2 id="matchName"></h2>
+                    <img id="matchImage" src="" alt="">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
 
 <script>
     //Look, if you're going to provide me with a working example of a site
@@ -194,7 +213,7 @@
         function validateForm(){
             var isValid = true;
             $(".form-control").each(function(){
-                if ($(this.val() === "")){
+                if ($(this).val() === ""){
                     isValid = false;
                 };
             });
@@ -203,8 +222,8 @@
         if (validateForm()){}
         var user = {
             name: $("#nameInput").val().trim(),
-            photo: $("#pictureLink").val().trim(),
-            scores[
+            photo: $("#pictureInput").val().trim(),
+            scores: [
             $("#question1").val(),
             $("#question2").val(),
             $("#question3").val(),
@@ -219,9 +238,13 @@
         }
         //to make this work on Heroku, too
         var currentURL = window.location.origin
-        console.log(user)
+        console.log(user);
         $.post(currentURL + "/api/friends", user)
           .done(function(data) {
+            console.log(data);
+            $("#matchName").text(data.name);
+            $("#matchImage").attr("src", data.photo);
+            $('#resultsModal').modal("toggle");
             console.log(data);
             alert("Calculating Love Life...");
           });

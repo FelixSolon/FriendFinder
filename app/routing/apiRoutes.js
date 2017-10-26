@@ -5,12 +5,13 @@ module.exports = function(app){
     res.json(friends);
   });
 
-  app.post("/api/friends")
-    var bestmatch = {
+  app.post("/api/friends", function(req, res){
+    var bestMatch = {
       name: "",
       photo: "",
-      friendDifference: 1000
-    };
+      //I like that Infinity is a number in JS.
+      friendDifference: Infinity
+      };
 
     var userData = req.body;
     var userScores = userData.scores;
@@ -25,11 +26,12 @@ module.exports = function(app){
 
     if (totalDifference <= bestMatch.friendDifference){
       bestMatch.name = friends[i].name;
-      bestMatch.name = friends[i].photo;
+      bestMatch.photo = friends[i].photo;
       bestMatch.friendDifference = totalDifference;
       };
     }
     friends.push(userData);
 
     res.json(bestMatch);
-  };
+  });
+}
