@@ -1,10 +1,14 @@
+
+//Require the usual stuff
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 
-
+//For Heroku purposes
 var PORT = process.env.PORT || 8080;
 
+
+//Cargo Cult Coding, because I haven't yet read all the Body Parser documentation.
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(bodyParser.json({ type: "application/*+json" }));
@@ -26,8 +30,3 @@ app.listen(PORT, function() {
   console.log("Server listening on: http://localhost:" + PORT);
 });
  
-var path = require('path');
-
-var previousSurveys = []
-
-console.log(previousSurveys);

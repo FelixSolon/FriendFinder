@@ -30,5 +30,8 @@ var friends = [
     }
 ];
 
+//I thought about including Jesus as a base example in this, but didn't want to offend anyone.
+//So I just included Hitler, who naturally gave all the wrong answers.
+
 module.exports = friends;
 
